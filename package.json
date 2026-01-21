@@ -9,11 +9,13 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@fluentui/react-components": "^9.72.9",
     "@fluentui/react-rating": "^9.3.12",
     "next": "16.1.1",
     "next-pwa": "^5.6.0",
     "react": "19.2.3",
-    "react-dom": "19.2.3"
+    "react-dom": "19.2.3",
+    "react-native-star-rating-widget": "^1.10.0"
   },
   "devDependencies": {
     "@types/next-pwa": "^5.6.9",
