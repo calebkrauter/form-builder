@@ -1,9 +1,8 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { Left } from './components/Left';
-import { Prompt } from './components/Prompt';
-import { Prompts } from './components/Prompts';
-import { Right } from './components/Right';
+import Image from 'next/image';
+import { Dropdown } from './components/Dropdown';
+
 import { Stars } from './components/Stars';
 import { Rating, RatingDisplay } from '@fluentui/react-rating';
 
@@ -14,18 +13,60 @@ export default function Home() {
   }, [rating]);
   return (
     <main className='main'>
-      <div className='surveryContainer'>
-        <div className='header'>NORTH STAR JET</div>
+      <form
+        className='surveryContainer'
+        onSubmit={() => {
+          console.log('SUBMIT');
+        }}
+      >
+        <Image
+          src='/nsj-logo.jpg'
+          width={125}
+          height={125}
+          alt='North Star Jet Logo'
+          className='logo'
+        ></Image>
+
         <div className='surveyStructure'>
-          <Left className='left'>
-            <Prompts />
-          </Left>
-          <Right className='right'>
-            <input className='starsRating'></input>
-            <Stars subject='Customer Service' />
-          </Right>
+          <div className='tailInputContainer col'>
+            <div className='subject'>Tail Number</div>
+            <input placeholder='Tail Number' className='fields border'></input>
+          </div>
+
+          <Dropdown
+            title={'What brought you to North Star Jet?'}
+            values={[
+              'CAA',
+              'World Fuel',
+              'Prices',
+              'Customer Service',
+              'Word of Mouth',
+              'Other',
+            ]}
+          />
+          <Dropdown
+            title='What is your favorite amenity?'
+            values={['Pop Corn', 'Merch', 'Coffee']}
+          />
+          <Dropdown title='Would you return?' values={['Yes', 'No']} />
+          <Stars subject='Customer Service' />
+          <textarea
+            className='fields border'
+            placeholder='Tell us why'
+          ></textarea>
+          <Stars subject='Amenities' />
+          <textarea
+            className='fields border'
+            placeholder='Tell us why'
+          ></textarea>
+          <Stars subject='Price' />
+          <textarea
+            className='fields border'
+            placeholder='Tell us why'
+          ></textarea>
         </div>
-      </div>
+        <button type='submit'>Submit</button>
+      </form>
     </main>
   );
 }

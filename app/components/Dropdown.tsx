@@ -6,7 +6,7 @@ interface Props {
   title: string;
   values: string[];
 }
-export function Prompt({ title, values }: Props) {
+export function Dropdown({ title, values }: Props) {
   const [selection, setSelection] = useState('caa');
   const suervey_options_id = useId();
   useEffect(() => {
@@ -15,11 +15,11 @@ export function Prompt({ title, values }: Props) {
 
   return (
     <div className='prompt'>
-      <label className='label' htmlFor={suervey_options_id}>
+      <label className='subject' htmlFor={suervey_options_id}>
         {title}
       </label>
       <select
-        className='dropdown'
+        className='dropdown fields border'
         id={suervey_options_id}
         onChange={(e) => {
           setSelection(e.currentTarget.value);
@@ -28,7 +28,7 @@ export function Prompt({ title, values }: Props) {
         {values.map((value, i) => {
           return (
             <option value={value} key={i}>
-              {value}
+              &nbsp;&nbsp;&nbsp;{value}
             </option>
           );
         })}
