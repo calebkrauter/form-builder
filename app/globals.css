@@ -3,8 +3,8 @@
 }
 
 ::placeholder {
-  color: rgb(50, 50, 50, .4);
-  font-family: 'Courier New';
+  color: rgba(117, 112, 112, 0.4);
+  font-family: Arial, Helvetica, sans-serif;
   font-size: 12px;
 }
 
@@ -21,25 +21,22 @@
   border-color:rgba(188, 188, 188, 0.4);
   border-width: 1px;
   margin-top: 5px;
-  margin-bottom: 10px;
-  transition: all 0.2s ease-in-out;
+  margin-bottom: 20px;
+  transition: all 0.025s ease-in-out;
 }
 
 
 .textarea:focus {
-  height: 81px;
-  margin-top: 2px;
-  margin-bottom: 7px;
-  transition: all 0.2s ease-in-out;
+  transition: all 0.025s ease-in-out;
 }
 
 .outline {
-  transition: all 0.3s ease-in-out;
+  transition: all .025 ease-in-out;
   outline: 1px solid white;
 }
 .outline:focus {
-  transition: all 0.3s ease-in-out;
-  outline: 2px solid rgb(255, 101, 101, .4);
+  transition: all .025 ease-in-out;
+  outline: 2px solid #0271e3
 }
 
 .main {
@@ -59,13 +56,18 @@
   display: flex;
   flex-direction: column;
   min-width: 200px;
-  width: 400px;
-  max-width: 850px;
+  width: 75vw;
   height: auto;
   border-radius: 25px;
   align-items: center;
   padding-top: 25px;
   padding-bottom: 50px;
+}
+
+@media only screen and (max-width: 500px) {
+  .surveryContainer {
+      width: 100vw;
+  }
 }
 
 input {
@@ -78,17 +80,13 @@ input {
   border-color:rgba(188, 188, 188, 0.4);
   border-width: 1px;
   margin-top: 5px;
-  margin-bottom: 10px;
-  transition: all 0.2s ease-in-out;
+  margin-bottom: 20px;
+  transition: all 0.025s ease-in-out;
   resize: none;
 }
 
 input:focus {
-  display: flex;
-  height: 56px;
-  margin-top: 2px;
-  margin-bottom: 7px;
-  transition: all 0.2s ease-in-out;
+  transition: all 0.025s ease-in-out;
 }
 
 .col {
@@ -105,7 +103,7 @@ button {
   font-weight: bold;
   font-size: large;
   margin-top: 50px;
-  background-color:rgb(255, 101, 101);
+  background-color:#0271e3;
   color: rgb(255, 255, 255);
   text-justify: center;
   display: flex;
@@ -166,23 +164,22 @@ button {
 #ratingGroup:has(#star5:hover, #star4:hover, #star3:hover, #star2:hover) #star2,
 #ratingGroup:has(#star5:hover, #star4:hover, #star3:hover, #star2:hover, #star1:hover) #star1
  {
-  transition: all 0.1s ease-in-out;
-  fill:rgb(255, 101, 101);
+  transition: all 0.025s ease-in-out;
+  fill: rgb(255, 195, 43);
 }
-
 #ratingGroup:has(#star5.toggleStars) #star5,
 #ratingGroup:has(#star5.toggleStars, #star4.toggleStars) #star4,
 #ratingGroup:has(#star5.toggleStars, #star4.toggleStars, #star3.toggleStars) #star3,
 #ratingGroup:has(#star5.toggleStars, #star4.toggleStars, #star3.toggleStars, #star2.toggleStars) #star2,
 #ratingGroup:has(#star5.toggleStars, #star4.toggleStars, #star3.toggleStars, #star2.toggleStars, #star1.toggleStars) #star1
  {
-  transition: all 0.1s ease-in-out;
-  fill:rgb(255, 101, 101);
+  transition: all 0.025s ease-in-out;
+  fill: rgb(255, 195, 43);
 }
 .subject {
-  color:#473737;
+  color:#828181;
   fill:rgba(188, 188, 188, 0.4);
-  transition: fill 0.1s ease-in-out; 
+  transition: fill 0.025s ease-in-out; 
 
 }
 
@@ -193,7 +190,7 @@ button {
 .logo {
   margin-top: 5px;
   padding-top: 15px;
-  margin-bottom: 15px;
+  margin-bottom: 50px;
 }
 .stars {
   display: flex;
@@ -206,30 +203,29 @@ button {
 .dropdown {
   height: 50px;
   max-width: 100%;
-  font-size: 12;
-  color: rgb(50, 50, 50);
+  color: rgba(117, 112, 112, 0.4);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;  
   background-color: white;
   padding: 15px;
   border-radius: 15px;
   border-color:rgba(188, 188, 188, 0.4);
   border-width: 1px;
   margin-top: 5px;
-  margin-bottom: 10px;
-  transition: all 0.2s ease-in-out;
+  margin-bottom: 20px;
+  transition: all 0.025s ease-in-out;
 }
 
 /* select:focus {
-  transition: all 0.3s ease-in-out;
+  transition: all .025 ease-in-out;
   border: solid;
   border-color: rgb(255, 101, 101, .4);
   border-width: 2px;
 } */
 
 .dropdown:focus {
-  height: 56px;
-  margin-top: 2px;
-  margin-bottom: 7px;
-  transition: all 0.2s ease-in-out;
+
+  transition: all 0.025s ease-in-out;
 }
 
 html,
