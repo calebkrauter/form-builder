@@ -2,9 +2,14 @@
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { Dropdown } from './components/Dropdown';
-
+import * as z from 'zod';
 import { Stars } from './components/Stars';
-import { Rating, RatingDisplay } from '@fluentui/react-rating';
+
+// const Survey = z.object({
+//   tail_number: z.string().refine((value) => {
+//     (/^[A-Z0-9-]{1,7}$/.test(value ?? ''), 'Must be a valid tail number.');
+//   }),
+// });
 
 export default function Home() {
   const [rating, setRating] = useState(0);
@@ -27,10 +32,16 @@ export default function Home() {
           className='logo'
         ></Image>
 
-        <div className='surveyStructure'>
+        <div className='surveyStructure' id='surveyStructure'>
           <div className='tailInputContainer col'>
-            <div className='subject'>Tail Number</div>
-            <input placeholder='Tail Number' className='fields border'></input>
+            <label className='subject' htmlFor='tail_number'>
+              Tail Number
+            </label>
+            <input
+              placeholder='Tail Number'
+              className='fields outline '
+              id='tail_number'
+            ></input>
           </div>
 
           <Dropdown
@@ -51,17 +62,17 @@ export default function Home() {
           <Dropdown title='Would you return?' values={['Yes', 'No']} />
           <Stars subject='Customer Service' />
           <textarea
-            className='fields border'
+            className='fields outline textarea'
             placeholder='Tell us why'
           ></textarea>
           <Stars subject='Amenities' />
           <textarea
-            className='fields border'
+            className='fields outline textarea'
             placeholder='Tell us why'
           ></textarea>
           <Stars subject='Price' />
           <textarea
-            className='fields border'
+            className='fields outline textarea'
             placeholder='Tell us why'
           ></textarea>
         </div>

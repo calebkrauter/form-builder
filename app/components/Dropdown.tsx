@@ -19,7 +19,7 @@ export function Dropdown({ title, values }: Props) {
         {title}
       </label>
       <select
-        className='dropdown fields border'
+        className='dropdown fields outline'
         id={suervey_options_id}
         onChange={(e) => {
           setSelection(e.currentTarget.value);
