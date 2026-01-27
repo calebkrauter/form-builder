@@ -20,22 +20,26 @@
   color: rgb(50, 50, 50);
   border-color:rgba(188, 188, 188, 0.4);
   border-width: 1px;
-  margin-top: 5px;
   margin-bottom: 20px;
-  transition: all 0.025s ease-in-out;
 }
 
 
-.textarea:focus {
-  transition: all 0.025s ease-in-out;
+.inputError {
+  margin-bottom: 6px;
+}
+
+.textAreaError {
+  margin-bottom: 6px;
+}
+
+.dropdownError {
+  margin-bottom: 6px;
 }
 
 .outline {
-  transition: all .025 ease-in-out;
   outline: 1px solid white;
 }
 .outline:focus {
-  transition: all .025 ease-in-out;
   outline: 2px solid #0271e3
 }
 
@@ -81,12 +85,12 @@ input {
   border-width: 1px;
   margin-top: 5px;
   margin-bottom: 20px;
-  transition: all 0.025s ease-in-out;
   resize: none;
+  color: rgb(50, 50, 50);
 }
 
-input:focus {
-  transition: all 0.025s ease-in-out;
+.input2 {
+  margin-bottom: 5px;
 }
 
 .col {
@@ -95,6 +99,11 @@ input:focus {
 }
 
 button {
+  background-color: #ffffff;
+  border: none;
+}
+
+.submitButton {
   width: 200px;
   height: 40px;
   padding: 30px;
@@ -109,8 +118,6 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-
-
 }
 
 .ratingGroup {
@@ -148,8 +155,6 @@ button {
 .prompt {
   display: flex;
   flex-direction: column;
-  
-
 }
 
 .star {
@@ -164,7 +169,7 @@ button {
 #ratingGroup:has(#star5:hover, #star4:hover, #star3:hover, #star2:hover) #star2,
 #ratingGroup:has(#star5:hover, #star4:hover, #star3:hover, #star2:hover, #star1:hover) #star1
  {
-  transition: all 0.025s ease-in-out;
+  
   fill: rgb(255, 195, 43);
 }
 #ratingGroup:has(#star5.toggleStars) #star5,
@@ -173,19 +178,14 @@ button {
 #ratingGroup:has(#star5.toggleStars, #star4.toggleStars, #star3.toggleStars, #star2.toggleStars) #star2,
 #ratingGroup:has(#star5.toggleStars, #star4.toggleStars, #star3.toggleStars, #star2.toggleStars, #star1.toggleStars) #star1
  {
-  transition: all 0.025s ease-in-out;
+  
   fill: rgb(255, 195, 43);
 }
 .subject {
   color:#828181;
   fill:rgba(188, 188, 188, 0.4);
-  transition: fill 0.025s ease-in-out; 
 
 }
-
-/* #surveyStructure:has(input:focus) .subject {
-  margin-top: 0;
-} */
 
 .logo {
   margin-top: 5px;
@@ -213,19 +213,40 @@ button {
   border-width: 1px;
   margin-top: 5px;
   margin-bottom: 20px;
-  transition: all 0.025s ease-in-out;
 }
 
-/* select:focus {
-  transition: all .025 ease-in-out;
-  border: solid;
-  border-color: rgb(255, 101, 101, .4);
+.error {
+  color: red;
+  font-size: bold;
+  font-size: 10px;
+
+}
+.errorStars {
+  display: flex;
+  margin-top:auto;
+  margin-bottom: auto;
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
+.errorOutline {
+  outline: solid;
+  outline-width: 2px;
+  outline-color: red;
+}
+
+.ratingHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.errorGroupBorder {
+  border-style: solid;
   border-width: 2px;
-} */
-
-.dropdown:focus {
-
-  transition: all 0.025s ease-in-out;
+  border-color: red;
+  border-radius: 5px;
+  padding-right: 5px;
 }
 
 html,

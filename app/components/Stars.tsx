@@ -1,46 +1,61 @@
-import { useEffect, useState } from 'react';
+'use client';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { FieldError } from 'react-hook-form';
 
 interface Props {
-  subject: string;
+  updateRating: (value: number) => void;
+  errorRating: string;
+  reset: { getRating: number; setRating: Dispatch<SetStateAction<number>> };
 }
-export function Stars({ subject }: Props) {
+export function Stars({ updateRating, errorRating, reset }: Props) {
   const [getRating, setRating] = useState(0);
-  const [getSubjectRating, setSubjectRating] = useState({
-    subject: '',
-    rating: 0,
-  });
+  const [getSubjectRating, setSubjectRating] = useState(0);
+
   function handleRating(rating: number) {
     const curRating = getRating === rating ? 0 : rating;
     setRating(curRating);
-    setSubjectRating({ subject: subject, rating: curRating });
+    updateRating(curRating);
+    setSubjectRating(curRating);
   }
+
   useEffect(() => {
-    console.log(getSubjectRating);
-  }, [getRating, getSubjectRating]);
+    async function resetRating() {
+      if (reset.getRating === -1) {
+        setRating(0);
+        reset.setRating(0);
+      }
+    }
+    resetRating();
+  }, [reset]);
   return (
     <div id='ratingGroup' className='ratingGroup'>
-      <div className='subject'>{subject}</div>
-      <div className='stars'>
+      <div className={`stars`}>
+        <div
+          className={`subject ${errorRating && getRating === 0 ? 'error errorStars' : ''}`}
+        >
+          {errorRating}
+        </div>
         {[1, 2, 3, 4, 5].map((rating) => {
           return (
-            <svg
-              id={`star${rating}`}
-              key={rating}
-              height='25px'
-              width='25px'
-              version='1.1'
-              className={`subject ${getRating === rating ? 'toggleStars' : ''}`}
-              xmlns='http://www.w3.org/2000/svg'
-              viewBox='0 0 473.486 473.486'
-              onClick={() => {
-                handleRating(rating);
-              }}
-            >
-              <polygon
-                points='473.486,182.079 310.615,157.952 235.904,11.23 162.628,158.675 0,184.389 117.584,299.641 91.786,462.257 
+            <div key={rating}>
+              <svg
+                id={`star${rating}`}
+                height='25px'
+                width='25px'
+                version='1.1'
+                className={`subject ${getRating === rating ? 'toggleStars' : ''}`}
+                xmlns='http://www.w3.org/2000/svg'
+                viewBox='0 0 473.486 473.486'
+                onClick={() => {
+                  handleRating(rating);
+                }}
+              >
+                <polygon
+                  points='473.486,182.079 310.615,157.952 235.904,11.23 162.628,158.675 0,184.389 117.584,299.641 91.786,462.257 
 	237.732,386.042 384.416,460.829 357.032,298.473 '
-              />
-            </svg>
+                />
+              </svg>
+            </div>
           );
         })}
       </div>

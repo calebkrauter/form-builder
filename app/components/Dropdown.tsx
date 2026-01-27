@@ -1,30 +1,32 @@
 'use client';
 
-import { useEffect, useId, useState } from 'react';
-
+import { useId } from 'react';
+import { UseFormRegisterReturn } from 'react-hook-form';
 interface Props {
   title: string;
   values: string[];
+  register: UseFormRegisterReturn;
+  error: string;
 }
-export function Dropdown({ title, values }: Props) {
-  const [selection, setSelection] = useState('caa');
+export function Dropdown({ title, values, register, error }: Props) {
   const suervey_options_id = useId();
-  useEffect(() => {
-    console.log(selection);
-  }, [selection]);
+  const defaultVal: string = 'Select an option';
 
   return (
-    <div className='prompt'>
+    <div className='prompt errorMarginBottom'>
       <label className='subject' htmlFor={suervey_options_id}>
         {title}
       </label>
       <select
-        className='dropdown fields outline'
+        defaultValue={''}
+        className={`dropdown fields ${error ? 'error errorOutline' : 'outline'}`}
         id={suervey_options_id}
-        onChange={(e) => {
-          setSelection(e.currentTarget.value);
-        }}
+        {...register}
       >
+        <option value='' disabled hidden>
+          &nbsp;&nbsp;&nbsp;{defaultVal}
+        </option>
+
         {values.map((value, i) => {
           return (
             <option value={value} key={i}>
