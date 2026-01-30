@@ -173,7 +173,10 @@ button {
 .subject {
   color:#828181;
   fill:rgba(188, 188, 188, 0.4);
+}
 
+.textBoxTitle {
+  margin-bottom: 5px;
 }
 
 .logo {

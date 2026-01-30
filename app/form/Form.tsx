@@ -8,6 +8,35 @@ import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useEffect, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
+import { InputField } from '../components/InputField';
+import { TextBox } from '../components/TextBox';
+
+const regex = {
+  tail_number: /^[A-Za-z0-9-]{1,7}$/,
+};
+
+const tailNumberSchema = z.object({
+  inputTailNumber: z.string().nonempty().regex(regex.tail_number),
+});
+
+const textNonEmptySchema = z.object({
+  inputTailNumber: z.string().nonempty(),
+});
+
+const selectOneOptionSchema = z.object({
+  selectOneOption: z.string().refine((val) => val !== ''),
+});
+
+const starRatingSchema = z.object({
+  starRating: z.number().gt(0),
+});
+
+const schemas = {
+  tailNumber: tailNumberSchema,
+  textNonEmpty: textNonEmptySchema,
+  selectOneOption: selectOneOptionSchema,
+  starRating: starRatingSchema,
+};
 
 const schema = z.object({
   tail_number: z
@@ -42,6 +71,7 @@ export function Form() {
     reset,
     setValue,
     formState: { errors },
+    getValues,
   } = useForm<FormValues>({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -67,10 +97,42 @@ export function Form() {
     setStarRating(0);
     setValue('rating3', value, { shouldValidate: true });
   };
-  const onSubmit: SubmitHandler<FormValues> = () => {
+  const onSubmit: SubmitHandler<FormValues> = async () => {
     toast.success("We've received your feedback!");
+    const submissionData = getValues();
+
     reset();
     setStarRating(-1);
+
+    try {
+      const response = await fetch('api/post', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'API-Key': 'mock-API-Key',
+        },
+        body: JSON.stringify(submissionData),
+      });
+      if (!response.ok) throw new Error("Data didn't fetch");
+      console.log(response.json());
+    } catch (error) {
+      console.log(error);
+    }
+
+    // TODO GET
+    // try {
+    //   const response = await fetch('api/get', {
+    //     method: 'GET',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //       'API-Key': process.env.DATA_API_KEY ?? 'temp-key-fallback',
+    //     },
+    //   });
+    //   if (!response.ok) throw new Error("Data didn't fetch");
+    //   console.log(response.json());
+    // } catch (error) {
+    //   console.log(error);
+    // }
   };
   const onInvalid: SubmitErrorHandler<FormValues> = () => {};
   return (
@@ -88,26 +150,16 @@ export function Form() {
       ></Image>
 
       <div className='surveyStructure' id='surveyStructure'>
-        <div className='tailInputContainer col input2'>
-          <label
-            className={`subject ${errors.tail_number?.message ? 'error' : ''}`}
-            htmlFor='tail_number'
-          >
-            Tail Number
-          </label>
-          <input
-            placeholder='N1234'
-            className={`fields ${errors.tail_number?.message ? 'errorOutline' : ' outline'}`}
-            id='tail_number'
-            {...register('tail_number')}
-          ></input>
-          {/* <div className={`${errors.tail_number?.message ? 'error' : ''}`}>
-            {errors.tail_number?.message}
-          </div> */}
-        </div>
+        <InputField
+          title={'Tail Number'}
+          placeholder={'N1234'}
+          error={errors.tail_number?.message as string}
+          register={{ ...register('tail_number') }}
+        />
+
         <Dropdown
           title={'What brought you to North Star Jet?'}
-          values={[
+          options={[
             'CAA',
             'World Fuel',
             'Prices',
@@ -120,79 +172,53 @@ export function Form() {
         />
         <Dropdown
           title='What is your favorite amenity?'
-          values={['Pop Corn', 'Merch', 'Coffee']}
+          options={['Pop Corn', 'Merch', 'Coffee']}
           error={errors.select2?.message as string}
           register={{ ...register('select2') }}
         />
         <Dropdown
           title='Would you return?'
-          values={['Yes', 'No']}
+          options={['Yes', 'No']}
           error={errors.select3?.message as string}
           register={{ ...register('select3') }}
         />
 
-        <div
-          className={`subject ratingHeader ${errors.rating1Textbox ? 'error' : ''}`}
-        >
-          <div>How was our Customer Service?</div>
-          <Stars
-            errorRating={errors.rating1?.message as string}
-            updateRating={handleRating1Change}
-            reset={{ getRating: starRating, setRating: setStarRating }}
-          />
-        </div>
-        <textarea
-          className={`fields textarea ${(errors.rating1Textbox?.message as string) ? 'errorOutline' : 'outline'}`}
-          placeholder='What about us stood out to you?'
-          {...register('rating1Textbox')}
-        ></textarea>
-        {/* <div
-          className={`${(errors.rating1Textbox?.message as string) ? 'error' : ''}`}
-        >
-          {errors.rating1Textbox?.message as string}
-        </div> */}
+        <Stars
+          title={'How was our Customer Service?'}
+          error={errors.rating1?.message as string}
+          updateRating={handleRating1Change}
+          reset={{ getRating: starRating, setRating: setStarRating }}
+        />
+        <TextBox
+          placeholder={'What about us stood out to you?'}
+          error={errors.rating1Textbox?.message as string}
+          register={{ ...register('rating1Textbox') }}
+        />
 
-        <div
-          className={`subject ratingHeader ${errors.rating2Textbox ? 'error' : ''}`}
-        >
-          <div>How did you like our amenities?</div>
-          <Stars
-            errorRating={errors.rating2?.message as string}
-            updateRating={handleRating2Change}
-            reset={{ getRating: starRating, setRating: setStarRating }}
-          />
-        </div>
-        <textarea
-          className={`fields textarea ${(errors.rating2Textbox?.message as string) ? 'errorOutline' : 'outline'}`}
-          placeholder='Did any amenities stand out to you?'
-          {...register('rating2Textbox')}
-        ></textarea>
-        {/* <div
-          className={`${(errors.rating2Textbox?.message as string) ? 'error' : ''}`}
-        >
-          {errors.rating2Textbox?.message as string}
-        </div> */}
+        <Stars
+          title={'How were the amenities?'}
+          error={errors.rating2?.message as string}
+          updateRating={handleRating2Change}
+          reset={{ getRating: starRating, setRating: setStarRating }}
+        />
 
-        <div
-          className={`subject ratingHeader ${errors.rating3Textbox ? 'error' : ''}`}
-        >
-          <div> How did you like our pricing?</div>
-          <Stars
-            errorRating={errors.rating3?.message as string}
-            updateRating={handleRating3Change}
-            reset={{ getRating: starRating, setRating: setStarRating }}
-          />
-        </div>
-        <textarea
-          className={`fields textarea ${(errors.rating3Textbox?.message as string) ? 'errorOutline' : 'outline'}`}
-          placeholder='How do we compare?'
-          {...register('rating3Textbox')}
-        ></textarea>
-        {/* <div
-          className={`${(errors.rating3Textbox?.message as string) ? 'error' : ''}`}
-        >
-          {errors.rating3Textbox?.message as string}
-        </div> */}
+        <TextBox
+          placeholder={'Did any amenities stand out to you?'}
+          error={errors.rating2Textbox?.message as string}
+          register={{ ...register('rating2Textbox') }}
+        />
+
+        <Stars
+          title={'How do our prices compare?'}
+          error={errors.rating3?.message as string}
+          updateRating={handleRating3Change}
+          reset={{ getRating: starRating, setRating: setStarRating }}
+        />
+        <TextBox
+          placeholder={'How do we compare?'}
+          error={errors.rating3Textbox?.message as string}
+          register={{ ...register('rating3Textbox') }}
+        />
       </div>
       <button type='submit' className='submitButton'>
         Submit

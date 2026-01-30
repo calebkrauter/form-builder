@@ -12,6 +12,7 @@
     "@fluentui/react-components": "^9.72.9",
     "@fluentui/react-rating": "^9.3.12",
     "@hookform/resolvers": "^5.2.2",
+    "@neondatabase/serverless": "^1.0.2",
     "next": "16.1.1",
     "next-pwa": "^5.6.0",
     "nuqs": "^2.8.6",
