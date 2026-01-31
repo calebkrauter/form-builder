@@ -1,14 +1,12 @@
+import { db } from '../database/db'
+
 export const dynamic = 'force-dynamic' // defaults to auto
 
 
 export async function GET() {
-  const res = await fetch('data:application/json, {"mock": "data sunshine"}', {
-    headers: {
-      'Content-Type': 'application/json',
-      'API-Key': process.env.DATA_API_KEY ?? 'temp-key-fallback',
-    },
-  })
-  const data = await res.json()
+  const data = await db.query(`SELECT * FROM submissions`)
+
  
-  return Response.json({ data, apiKey: process.env.DATA_API_KEY })
-}
+  return new Response(JSON.stringify(data.rows), {
+    headers: { 'Content-Type': 'application/json' }
+  })}

@@ -12,6 +12,8 @@ import z, { ZodNumber, ZodString } from 'zod';
 // import { schema } from '../validation/schema';
 import { postSubmission } from '../requests/postSubmission';
 import { surveys } from '../form-templates/registry';
+import { v4 as uuidv4 } from 'uuid';
+
 import {
   FieldTypes,
   hasOptions,
@@ -45,6 +47,7 @@ const schema = z.object(
 export function Form() {
   type FormValues = z.infer<typeof schema>;
   const [starRating, setStarRating] = useState(0);
+  const SUBMITTER_KEY = 'submitterId';
   const {
     register,
     handleSubmit,
@@ -65,10 +68,18 @@ export function Form() {
   const onSubmit: SubmitHandler<FormValues> = async () => {
     toast.success("We've received your feedback!");
     const submissionData = getValues();
-
+    console.log(submissionData);
     reset();
     setStarRating(-1);
-    postSubmission(submissionData);
+    postSubmission({
+      responseId: uuidv4(),
+      rowVersion: 0,
+      surveyKey: surveys.customer_experience.surveyKey,
+      submitterId: getSubmitterId(),
+
+      submittedAt: new Date(),
+      submissionData,
+    });
   };
   const onInvalid: SubmitErrorHandler<FormValues> = () => {};
   function placeholder(i: number) {
@@ -77,6 +88,16 @@ export function Form() {
 
   function options(i: number) {
     return hasOptions(questions[i]) ? questions[i].options : [];
+  }
+
+  function getSubmitterId() {
+    let id = localStorage.getItem(SUBMITTER_KEY);
+    if (!id) {
+      id = uuidv4();
+      localStorage.setItem(SUBMITTER_KEY, id);
+    }
+
+    return id;
   }
   return (
     <form
