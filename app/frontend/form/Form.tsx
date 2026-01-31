@@ -8,9 +8,27 @@ import { useEffect, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import { InputField } from '../components/InputField';
 import { TextBox } from '../components/TextBox';
-import z from 'zod';
-import { schema } from '../validation/schema';
+import z, { ZodNumber, ZodString } from 'zod';
+// import { schema } from '../validation/schema';
 import { postSubmission } from '../requests/postSubmission';
+const fields = [
+  { name: 'firstName', type: 'text' },
+  { name: 'age', type: 'number' },
+];
+
+// Create a dynamic Zod schema
+const schema = z.object(
+  fields.reduce(
+    (acc, field) => {
+      acc[field.name] =
+        field.type === 'number'
+          ? z.coerce.number().min(0) // 👈 important
+          : z.string().min(1, 'Required');
+      return acc;
+    },
+    {} as Record<string, z.ZodTypeAny>,
+  ),
+);
 
 export function Form() {
   type FormValues = z.infer<typeof schema>;
@@ -26,6 +44,7 @@ export function Form() {
     resolver: zodResolver(schema),
     mode: 'onChange', // validate as soon as values change
   });
+
   const handleRating1Change = (value: number) => {
     setStarRating(0);
     setValue('rating1', value, { shouldValidate: true });
@@ -56,10 +75,12 @@ export function Form() {
 
       <div className='surveyStructure' id='surveyStructure'>
         <InputField
+          name={fields[0].name}
           title={'Tail Number'}
           placeholder={'N1234'}
-          error={errors.tail_number?.message as string}
-          register={{ ...register('tail_number') }}
+          error={errors[fields[0].name]?.message as string}
+          register={register(fields[0].name)}
+          type={fields[0].type}
         />
 
         <Dropdown
