@@ -38,32 +38,106 @@ const schemas = {
   starRating: starRatingSchema,
 };
 
-const schema = z.object({
-  tail_number: z
-    .string()
-    .nonempty('Tail Number Required')
-    .regex(/^[A-Za-z0-9-]{1,7}$/, {
-      message: 'Enter a valid Tail Number e.g. N1234',
-    }),
-  select1: z
-    .string()
-    .refine((val) => val !== '', { message: 'Select an option' }),
-  select2: z
-    .string()
-    .refine((val) => val !== '', { message: 'Select an option' }),
-  select3: z
-    .string()
-    .refine((val) => val !== '', { message: 'Select an option' }),
-  rating1: z.number().gt(0, 'Select rating'),
-  rating2: z.number().gt(0, 'Select rating'),
-  rating3: z.number().gt(0, 'Select rating'),
-  rating1Textbox: z.string().min(1, { message: 'Required response' }),
-  rating2Textbox: z.string().min(1, { message: 'Required response' }),
-  rating3Textbox: z.string().min(1, { message: 'Required response' }),
-});
+const surveyQuestions = [
+  {
+    id: 'input0',
+    type: 'text',
+    title: 'Tail Number',
+    schema: 'tailNumber',
+    placeholder: 'N1234',
+  },
+  {
+    id: 'select1',
+    type: 'select',
+    title: 'What brought you to North Star Jet?',
+    options: [
+      'CAA',
+      'World Fuel',
+      'Prices',
+      'Customer Service',
+      'Word of Mouth',
+      'Other',
+    ],
+    schema: 'selectOneOption',
+  },
+  {
+    id: 'select2',
+    type: 'select',
+    title: 'What are your favorite amenities?',
+    options: ['Pop Corn', 'Merch', 'Coffee', 'Red Carpet', 'Other'],
+    schema: 'selectOneOption',
+  },
+  {
+    id: 'select3',
+    type: 'select',
+    title: 'Would you return?',
+    options: ['Yes', 'No'],
+    schema: 'selectOneOption',
+  },
+  {
+    id: 'rating4',
+    type: 'rating',
+    title: 'How was our Customer Service?',
+    schema: 'starRating',
+  },
+  {
+    id: 'textBox5',
+    type: 'textarea',
+    schema: 'textNonEmpty',
+    placeholder: 'What about us stood out to you?',
+  },
+  {
+    id: 'rating6',
+    type: 'rating',
+    title: 'What did you like about our amenities?',
+    schema: 'starRating',
+  },
+  {
+    id: 'textBox7',
+    type: 'textarea',
+    schema: 'textNonEmpty',
+    placeholder: 'Did any amenities stand out to you?',
+  },
+  {
+    id: 'rating8',
+    type: 'rating',
+    title: 'How are the prices?',
+    schema: 'starRating',
+  },
+  {
+    id: 'textBox9',
+    type: 'textarea',
+    schema: 'textNonEmpty',
+    placeholder: 'How did we compare?',
+  },
+];
+
+// const schema = z.object({
+//   tail_number: z
+//     .string()
+//     .nonempty('Tail Number Required')
+//     .regex(/^[A-Za-z0-9-]{1,7}$/, {
+//       message: 'Enter a valid Tail Number e.g. N1234',
+//     }),
+//   select1: z
+//     .string()
+//     .refine((val) => val !== '', { message: 'Select an option' }),
+//   select2: z
+//     .string()
+//     .refine((val) => val !== '', { message: 'Select an option' }),
+//   select3: z
+//     .string()
+//     .refine((val) => val !== '', { message: 'Select an option' }),
+//   rating1: z.number().gt(0, 'Select rating'),
+//   rating2: z.number().gt(0, 'Select rating'),
+//   rating3: z.number().gt(0, 'Select rating'),
+//   rating1Textbox: z.string().min(1, { message: 'Required response' }),
+//   rating2Textbox: z.string().min(1, { message: 'Required response' }),
+//   rating3Textbox: z.string().min(1, { message: 'Required response' }),
+// });
 
 export function Form() {
-  type FormValues = z.infer<typeof schema>;
+  // type FormValues = z.infer<typeof schema>;
   const [starRating, setStarRating] = useState(0);
   const {
     register,
@@ -72,32 +146,12 @@ export function Form() {
     setValue,
     formState: { errors },
     getValues,
-  } = useForm<FormValues>({
-    resolver: zodResolver(schema),
-    defaultValues: {
-      tail_number: '',
-      rating1: 0,
-      rating2: 0,
-      rating3: 0,
-      rating1Textbox: '',
-      rating2Textbox: '',
-      rating3Textbox: '',
-    },
+  } = useForm({
+    // resolver: zodResolver(schema),
     mode: 'onChange', // validate as soon as values change
   });
-  const handleRating1Change = (value: number) => {
-    setStarRating(0);
-    setValue('rating1', value, { shouldValidate: true });
-  };
-  const handleRating2Change = (value: number) => {
-    setStarRating(0);
-    setValue('rating2', value, { shouldValidate: true });
-  };
-  const handleRating3Change = (value: number) => {
-    setStarRating(0);
-    setValue('rating3', value, { shouldValidate: true });
-  };
-  const onSubmit: SubmitHandler<FormValues> = async () => {
+
+  const onSubmit = async () => {
     toast.success("We've received your feedback!");
     const submissionData = getValues();
 
@@ -134,7 +188,8 @@ export function Form() {
     //   console.log(error);
     // }
   };
-  const onInvalid: SubmitErrorHandler<FormValues> = () => {};
+  const onInvalid = () => {};
+
   return (
     <form
       className='surveryContainer'
@@ -150,13 +205,57 @@ export function Form() {
       ></Image>
 
       <div className='surveyStructure' id='surveyStructure'>
-        <InputField
-          title={'Tail Number'}
-          placeholder={'N1234'}
-          error={errors.tail_number?.message as string}
-          register={{ ...register('tail_number') }}
-        />
+        {surveyQuestions.map((question, i) => {
+          switch (question.id) {
+            case 'input0':
+              return (
+                <InputField
+                  key={i}
+                  title={`${question.title}`}
+                  placeholder={question.placeholder as string}
+                  error={`errors.${question.id}.message as string`}
+                  register={{ ...register(question.id) }}
+                />
+              );
 
+            case `select${i}`:
+              return (
+                <Dropdown
+                  key={i}
+                  title={question.title}
+                  options={question.options as string[]}
+                  error={`errors.${question.id}.message as string`}
+                  register={{ ...register(question.id) }}
+                />
+              );
+
+            case `rating${i}`:
+              return (
+                <Stars
+                  key={i}
+                  title={question.title}
+                  error={'errors.[question.id]?.message as string'}
+                  updateRating={(value: number) => {
+                    setStarRating(0);
+                    setValue(`${question.id}`, value, {
+                      shouldValidate: true,
+                    });
+                  }}
+                  reset={{ getRating: starRating, setRating: setStarRating }}
+                />
+              );
+            case `textBox${i}`:
+              return (
+                <TextBox
+                  key={i}
+                  placeholder={question.placeholder as string}
+                  error={`errors.${question.id}.message as string`}
+                  register={{ ...register(question.id) }}
+                />
+              );
+          }
+        })}
+        {/* 
         <Dropdown
           title={'What brought you to North Star Jet?'}
           options={[
@@ -218,7 +317,7 @@ export function Form() {
           placeholder={'How do we compare?'}
           error={errors.rating3Textbox?.message as string}
           register={{ ...register('rating3Textbox') }}
-        />
+        /> */}
       </div>
       <button type='submit' className='submitButton'>
         Submit
