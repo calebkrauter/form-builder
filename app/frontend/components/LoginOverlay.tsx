@@ -11,7 +11,7 @@ export function LoginOverlay({}) {
   const [username] = useQueryState('username');
   const [pressedSubmit, setPressedSubmit] = useState(false);
   const schema = z.object({
-    password: z.string().min(5),
+    password: z.string().nonempty(),
   });
   const [openModal, setOpenModal] = useState(true);
   type FormValues = z.infer<typeof schema>;

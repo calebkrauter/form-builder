@@ -19,7 +19,6 @@ export default function Home({ params }: Props) {
   const surveyKey = React.use(getSurveyKey());
   return (
     <main className='main'>
-      <LoginOverlay />
       <Form surveyKey={surveyKey} />
     </main>
   );
