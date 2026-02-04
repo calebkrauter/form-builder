@@ -29,7 +29,7 @@ export function InputField({
       )}
       <input
         placeholder={placeholder}
-        className={`fields ${error ? 'errorOutline' : ' outline'}`}
+        className={`fields inputText ${error ? 'errorOutline' : ' outline'}`}
         id={id}
         {...register}
         type={type}

@@ -1,7 +1,7 @@
-export type FieldType = 'text_input' | 'text_box' | 'stars' | 'dropdown_select_one';
+export type FieldType = 'text_input' | 'text_box' | 'stars' | 'rating' | 'dropdown_select' | 'question_base' | 'check_box';
 
 interface QuestionBase {
-  helpText: string,
+  helpText?: string,
   id: string,
   label: string,
   showLabel: boolean,
@@ -20,12 +20,19 @@ interface StarsQuestion extends QuestionBase {
   min: number,
 }
 
-interface DropdownSelect extends QuestionBase {
+interface RatingRadioQuestion extends QuestionBase, StarsQuestion {
+  options: string[]
+}
+
+type CheckBoxQuestion = RatingRadioQuestion;
+
+interface DropdownSelectQuestion extends QuestionBase {
   placeholder: string,
   options: string[],
 }
 
-export type SurveyQuestion = TextQuestion | StarsQuestion | DropdownSelect
+
+export type SurveyQuestion = TextQuestion | StarsQuestion | RatingRadioQuestion | DropdownSelectQuestion | QuestionBase
 
 export interface SurveyDefinition {
   surveyKey: string,
@@ -37,20 +44,30 @@ export interface SurveyDefinition {
 
 const enum Keys {
   PLACEHOLDER = 'placeholder',
-  OPTIONS ='options',
+  OPTIONS = 'options',
 }
 
 export const enum FieldTypes {
   TEXT_INPUT = 'text_input',
   TEXT_BOX = 'text_box',
   STARS = 'stars',
-  DROPDOWN_SELECT_ONE = 'dropdown_select_one',
-
+  RATING = 'rating',
+  DROPDOWN_SELECT = 'dropdown_select',
+  QUESTION_BASE = 'question_base',
+  CHECK_BOX = 'check_box',
 }
-  export function hasPlaceholder(question: SurveyQuestion): question is TextQuestion | DropdownSelect {
-    return 'placeholder' in question;
+  export function hasPlaceholder(question: SurveyQuestion): question is TextQuestion | DropdownSelectQuestion {
+    return Keys.PLACEHOLDER in question;
   }
 
-  export function hasOptions(question: SurveyQuestion): question is DropdownSelect {
-    return 'options' in question;
+  export function hasOptionsDropdownSelect(question: SurveyQuestion): question is DropdownSelectQuestion {
+    return Keys.OPTIONS in question;
+  }
+
+  export function hasOptionsRatingRadio(question: SurveyQuestion): question is RatingRadioQuestion {
+    return Keys.OPTIONS in question;
+  }
+
+  export function hasOptionsCheckBox(question: SurveyQuestion): question is CheckBoxQuestion {
+    return question.type === FieldTypes.CHECK_BOX;
   }
