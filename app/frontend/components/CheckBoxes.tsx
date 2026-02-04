@@ -11,10 +11,10 @@ interface Props {
 export function CheckBoxes({ question, options, error, register }: Props) {
   return (
     <div
-      className={`col ratingGroup radioGroup ${error ? 'error errorOutline' : ''}`}
+      className={`col ratingGroup radioGroup ${error ? 'error errorBorder' : ''}`}
       key={question.id}
     >
-      <label className='subject r'>{question.label}</label>
+      <label className='subject'>{question.label}</label>
       {options.map((option, i) => {
         return (
           <div key={i}>

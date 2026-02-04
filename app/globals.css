@@ -389,11 +389,14 @@ color: #606060ff
   margin-bottom: 20px;
 }
 
+.disableForm + form {
+  pointer-events: none;
+  user-select: none;
+}
 
 
 .error {
   color: red;
-
 }
 
 .errorColor {
@@ -414,6 +417,13 @@ color: #606060ff
   outline-color: red;
 }
 
+.errorBorder {
+  border: solid;
+  border-width: 1px;
+  border-color: red;
+  padding: 10px;
+  border-radius: 10px;
+}
 .ratingHeader {
   display: flex;
   align-items: center;

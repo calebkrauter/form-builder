@@ -1,0 +1,21 @@
+import { NextResponse } from 'next/server';
+import bcrypt from 'bcrypt';
+import { db } from '../database/db';
+
+export const dynamic = 'force-dynamic'
+
+export async function POST(request: Request) {
+  const data = await request.json();
+
+      const result = await db.query(
+        `SELECT password_hash FROM users`
+      );
+      for (const row of result.rows) {
+        const authenticated = await bcrypt.compare(data.password, row.password_hash)
+        console.log('password attempt: [', data.password, '], password stored: [', row.password_hash, '], authenticated: [', authenticated, ']')
+        if (authenticated)
+          return Response.json({authenticated: authenticated});
+      }
+  
+  return NextResponse.json({authenticated: false})
+}

@@ -12,7 +12,7 @@ interface Props {
 export function RadioGroup({ question, id, options, error, register }: Props) {
   return (
     <div
-      className={`col ratingGroup radioGroup ${error ? 'error errorOutline' : ''}`}
+      className={`col ratingGroup radioGroup ${error ? 'error errorBorder' : ''}`}
       key={question.id}
     >
       <label className='subject multiSelectText'>{question.label}</label>
