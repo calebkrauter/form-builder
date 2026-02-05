@@ -41,6 +41,7 @@ interface Props {
 
 export function Form({ surveyKey }: Props) {
   const questions: SurveyQuestion[] = surveys[surveyKey].questions;
+  const [submitted, setSubmitted] = useState(false);
   const schema = z.object(
     questions.reduce(
       (result, field) => {
@@ -90,6 +91,7 @@ export function Form({ surveyKey }: Props) {
   const onSubmit: SubmitHandler<FormValues> = async () => {
     toast.success("We've received your feedback!");
     const submissionData = getValues();
+    setSubmitted(true);
     reset();
     setStarRating(-1);
     postSubmission({
@@ -220,6 +222,7 @@ export function Form({ surveyKey }: Props) {
                   options={optionsCheckBox(i)}
                   error={errors[questions[i].id]?.message as string}
                   register={register(questions[i].id)}
+                  submitAction={{ submitted, setSubmitted }}
                 />
               );
           }

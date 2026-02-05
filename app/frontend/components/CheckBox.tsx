@@ -1,20 +1,35 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSquareCheck, faSquare } from '@fortawesome/free-regular-svg-icons';
-import { UseFormRegisterReturn } from 'react-hook-form';
-import { useState } from 'react';
+import {
+  FieldValues,
+  UseFormGetValues,
+  UseFormRegisterReturn,
+} from 'react-hook-form';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
 interface Props {
   option: string;
   register: UseFormRegisterReturn;
+  submitAction: {
+    submitted: boolean;
+    setSubmitted: Dispatch<SetStateAction<boolean>>;
+  };
 }
 
-export function CheckBox({ option, register }: Props) {
+export function CheckBox({ option, register, submitAction }: Props) {
   const [checked, setChecked] = useState<boolean>(false);
+  useEffect(() => {
+    if (submitAction.submitted === true) {
+      (() => {
+        setChecked(!submitAction.submitted);
+        submitAction.setSubmitted(!submitAction.submitted);
+      })();
+    }
+  }, [submitAction, submitAction.submitted]);
   return (
     <label className='row spaceAbove'>
       <input
         type='checkbox'
-        checked={checked}
         id={option}
         {...register}
         onChange={(e) => {
