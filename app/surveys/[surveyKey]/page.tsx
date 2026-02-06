@@ -1,3 +1,4 @@
+import { Footer } from '@/app/frontend/components/Footer';
 import { Form } from '@/app/frontend/form/Form';
 import React from 'react';
 
@@ -17,8 +18,9 @@ export default function Home({ params }: Props) {
   }
   const surveyKey = React.use(getSurveyKey());
   return (
-    <main className='main'>
+    <main className='main col'>
       <Form surveyKey={surveyKey} />
+      <Footer />
     </main>
   );
 }
