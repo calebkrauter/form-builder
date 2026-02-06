@@ -33,13 +33,7 @@ export function Dropdown({
         id={id}
         {...register}
       >
-        <option
-          value=''
-          id='defaultOption'
-          className='defaultOption'
-          disabled
-          hidden
-        >
+        <option value='' id='defaultOption' disabled hidden>
           &nbsp;&nbsp;{defaultVal}
         </option>
 

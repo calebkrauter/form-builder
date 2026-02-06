@@ -3,7 +3,7 @@
 }
 
 ::placeholder {
-  color: rgba(117, 112, 112, 0.4);
+  color: rgba(80, 80, 80, 0.4);
   font-family: Arial, Helvetica, sans-serif;
   font-size: 16px;
 }
@@ -106,6 +106,7 @@
 .inputPlaceholderError::placeholder{
   color: red;
 }
+
 .fixed {
   position: fixed;
 }
@@ -318,7 +319,7 @@ button:active {
   border-radius: 25px;
   font-weight: bold;
   font-size: large;
-  margin: 30px;
+  margin: 15px;
   background-color:#0271e3;
   color: rgb(255, 255, 255);
   text-justify: center;
@@ -420,6 +421,27 @@ color: #606060ff
   fill:rgba(188, 188, 188, 0.4);
 }
 
+.closeButton  {
+  color: #868686;
+  justify-content: center;
+  align-items: center;
+  width: 16px;
+  cursor: pointer;
+  margin-left: auto;
+  margin-bottom: auto;
+}
+
+.closeButton:hover {
+  color: black;
+}
+
+.secondary {
+  color: black;
+}
+
+.textCenter {
+  text-align: center;
+}
 .textBoxTitle {
   margin-bottom: 5px;
   max-width: 250px;
@@ -441,11 +463,16 @@ color: #606060ff
 select {
   cursor: pointer;
 }
-
+hr {
+  color: rgb(226, 226, 226);
+  height: 1px;
+  border-style: solid;
+  margin-bottom: 5px;
+}
 .dropdown {
   height: 50px;
   max-width: 100%;
-  color: rgba(117, 112, 112, 0.4);
+  color: rgba(80, 80, 80, 0.4);
   font-family: Arial, Helvetica, sans-serif;
   font-size: 16px;  
   background-color: white;
@@ -456,7 +483,23 @@ select {
   margin-top: 5px;
   margin-bottom: 20px;
 }
+@media (min-width: 768px) {
+  /* styles when the page is narrower */
+  .surveyLinkContainer {
+    display: flex;
+    flex-direction: row;
 
+  }
+}
+
+@media (max-width: 768px) {
+  /* styles when the page is narrower */
+  .surveyLinkContainer {
+    display: flex;
+    flex-direction: column;
+
+  }
+}
 .error {
   color: red;
 }
@@ -483,7 +526,7 @@ select {
   border: solid;
   border-width: 1px;
   border-color: red;
-  padding: 10px;
+  padding-left: 25px;
   border-radius: 10px;
 }
 .ratingHeader {

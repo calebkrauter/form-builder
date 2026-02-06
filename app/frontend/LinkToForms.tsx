@@ -2,7 +2,7 @@ import { surveys } from './form-templates/registry';
 
 export function LinkToForms() {
   return (
-    <div className='row'>
+    <div className='surveyLinkContainer'>
       {Object.keys(surveys).map((surveyKey, i) => {
         return (
           surveyKey !== 'feedback' && (

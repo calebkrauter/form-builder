@@ -23,6 +23,8 @@ import {
   optionsRatingRadio,
   optionsCheckBox,
 } from './FormUtil';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
 
 interface Props {
   surveyKey: string;
@@ -115,101 +117,125 @@ export function Form({ surveyKey }: Props) {
       <Toaster position='top-center' reverseOrder={false} />
       <Hero />
       <div className='surveyStructure' id='surveyStructure'>
-        {questions.map((question, i) => {
-          switch (question.type) {
-            case FieldTypes.TEXT_INPUT:
-              return (
-                <InputField
-                  key={questions[i].id}
-                  id={questions[i].id}
-                  title={questions[i].label}
-                  placeholder={placeholder(i, surveyKey)}
-                  error={errors[questions[i].id]?.message as string}
-                  showLabel
-                  register={register(questions[i].id)}
-                  type={questions[i].type}
-                />
-              );
+        {submitted && (
+          <div className='subject textCenter'>
+            <div
+              className='closeButton col centerX'
+              onClick={() => {
+                setSubmitted(false);
+              }}
+            >
+              <FontAwesomeIcon icon={faXmark}></FontAwesomeIcon>
+            </div>
+            <h2 className='secondary'>Thank you</h2>
+            <Markdown>**for your submission!**</Markdown>
+            <h1 className='mTop'>🎉</h1>
+            <p className='mTop'>Close this to make another submission.</p>
+          </div>
+        )}
+        {!submitted &&
+          questions.map((question, i) => {
+            switch (question.type) {
+              case FieldTypes.TEXT_INPUT:
+                return (
+                  <InputField
+                    key={questions[i].id}
+                    id={questions[i].id}
+                    title={questions[i].label}
+                    placeholder={placeholder(i, surveyKey)}
+                    error={errors[questions[i].id]?.message as string}
+                    showLabel
+                    register={register(questions[i].id)}
+                    type={questions[i].type}
+                  />
+                );
 
-            case FieldTypes.DROPDOWN_SELECT:
-              return (
-                <Dropdown
-                  key={questions[i].id}
-                  id={questions[i].id}
-                  title={questions[i].label}
-                  options={optionsDropdownSelect(i, surveyKey)}
-                  error={errors[questions[i].id]?.message as string}
-                  showLabel
-                  register={register(questions[i].id)}
-                />
-              );
-            case FieldTypes.TEXT_BOX:
-              return (
-                <TextBox
-                  key={questions[i].id}
-                  id={questions[i].id}
-                  title={questions[i].label}
-                  placeholder={placeholder(i, surveyKey)}
-                  error={errors[questions[i].id]?.message as string}
-                  showLabel
-                  register={register(questions[i].id)}
-                />
-              );
-            case FieldTypes.STARS:
-              return (
-                <Stars
-                  key={questions[i].id}
-                  itr={i}
-                  title={questions[i].label}
-                  error={errors[questions[i].id]?.message as string}
-                  updateRating={handleRatingChange}
-                  showLabel={false}
-                  reset={{ getRating: starRating, setRating: setStarRating }}
-                />
-              );
-            case FieldTypes.QUESTION_BASE:
-              return (
-                <Markdown
-                  key={questions[i].id}
-                  components={{
-                    p: ({ children }) => (
-                      <p className='subject description'>{children}</p>
-                    ),
-                  }}
-                >
-                  {questions[i].label}
-                </Markdown>
-              );
-            case FieldTypes.RATING:
-              return (
-                <RadioGroup
-                  key={questions[i].id}
-                  id={questions[i].id}
-                  question={questions[i]}
-                  options={optionsRatingRadio(i, surveyKey)}
-                  error={errors[questions[i].id]?.message as string}
-                  register={register(questions[i].id)}
-                />
-              );
-            case FieldTypes.CHECK_BOX:
-              return (
-                <CheckBoxes
-                  key={questions[i].id}
-                  question={questions[i]}
-                  options={optionsCheckBox(i, surveyKey)}
-                  error={errors[questions[i].id]?.message as string}
-                  register={register(questions[i].id)}
-                  submitAction={{ submitted, setSubmitted }}
-                />
-              );
-          }
+              case FieldTypes.DROPDOWN_SELECT:
+                return (
+                  <Dropdown
+                    key={questions[i].id}
+                    id={questions[i].id}
+                    title={questions[i].label}
+                    options={optionsDropdownSelect(i, surveyKey)}
+                    error={errors[questions[i].id]?.message as string}
+                    showLabel
+                    register={register(questions[i].id)}
+                  />
+                );
+              case FieldTypes.TEXT_BOX:
+                return (
+                  <div key={questions[i].id}>
+                    {questions[i].showLine && <hr />}
+                    <TextBox
+                      id={questions[i].id}
+                      title={questions[i].label}
+                      placeholder={placeholder(i, surveyKey)}
+                      error={errors[questions[i].id]?.message as string}
+                      showLabel
+                      register={register(questions[i].id)}
+                    />
+                  </div>
+                );
+              case FieldTypes.STARS:
+                return (
+                  <Stars
+                    key={questions[i].id}
+                    itr={i}
+                    title={questions[i].label}
+                    error={errors[questions[i].id]?.message as string}
+                    updateRating={handleRatingChange}
+                    showLabel={false}
+                    reset={{ getRating: starRating, setRating: setStarRating }}
+                  />
+                );
+              case FieldTypes.QUESTION_BASE:
+                return (
+                  <div key={questions[i].id}>
+                    {questions[i].showLine && <hr />}
 
-          return null;
-        })}
+                    <Markdown
+                      components={{
+                        p: ({ children }) => (
+                          <p className='subject description'>{children}</p>
+                        ),
+                      }}
+                    >
+                      {questions[i].label}
+                    </Markdown>
+                  </div>
+                );
+              case FieldTypes.RATING:
+                return (
+                  <RadioGroup
+                    key={questions[i].id}
+                    id={questions[i].id}
+                    question={questions[i]}
+                    options={optionsRatingRadio(i, surveyKey)}
+                    error={errors[questions[i].id]?.message as string}
+                    register={register(questions[i].id)}
+                  />
+                );
+              case FieldTypes.CHECK_BOX:
+                return (
+                  <CheckBoxes
+                    key={questions[i].id}
+                    question={questions[i]}
+                    options={optionsCheckBox(i, surveyKey)}
+                    error={errors[questions[i].id]?.message as string}
+                    register={register(questions[i].id)}
+                    submitAction={{ submitted, setSubmitted }}
+                  />
+                );
+            }
+
+            return null;
+          })}
       </div>
-      <button type='submit' className='submitButton'>
-        Submit
-      </button>
+      {!submitted && (
+        <button type='submit' className='submitButton'>
+          Submit
+        </button>
+      )}
     </form>
   );
 }
