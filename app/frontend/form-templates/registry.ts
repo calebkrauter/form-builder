@@ -8,6 +8,16 @@ export const surveys: Record<string, SurveyDefinition> = {
     version: 1,
     questions: [
       {
+        id: 'header',
+        label:
+          '**Customer Experience Survey**',
+        showLabel: true,
+        required: false,
+				header: true,
+				showLine: false,
+        type: 'question_base',
+      },
+      {
         helpText: 'Example: N123AB',
         id: 'question_1',
         label: 'Tail Number',
@@ -15,6 +25,7 @@ export const surveys: Record<string, SurveyDefinition> = {
         minLength: 3,
         placeholder: 'N123AB',
         required: true,
+				header: false,
 				showLine: false,
         showLabel: true,
         type: 'text_input',
@@ -25,6 +36,7 @@ export const surveys: Record<string, SurveyDefinition> = {
         label: 'What brought you to North Star Jet?',
         placeholder: 'Select an option',
         required: true,
+				header: false,
 				showLine: false,
         showLabel: true,
         options: [
@@ -43,6 +55,7 @@ export const surveys: Record<string, SurveyDefinition> = {
         label: 'What is your favorite amenity?',
         placeholder: 'Select an option',
         required: true,
+				header: false,
 				showLine: false,
         showLabel: true,
         options: [
@@ -58,6 +71,7 @@ export const surveys: Record<string, SurveyDefinition> = {
         label: 'Would you return?',
         placeholder: 'Select an option',
         required: true,
+				header: false,
 				showLine: false,
         showLabel: true,
         options: [{ yes: 'Yes' }, { no: 'No' }],
@@ -72,6 +86,7 @@ export const surveys: Record<string, SurveyDefinition> = {
         max: 5,
         min: 1,
         required: true,
+				header: false,
 				showLine: false,
         showLabel: false,
         type: 'stars',
@@ -84,6 +99,7 @@ export const surveys: Record<string, SurveyDefinition> = {
         minLength: 3,
         placeholder: 'What about us stood out to you?',
         required: true,
+				header: false,
 				showLine: false,
         showLabel: true,
         type: 'text_box',
@@ -97,6 +113,7 @@ export const surveys: Record<string, SurveyDefinition> = {
         max: 5,
         min: 1,
         required: true,
+				header: false,
 				showLine: false,
         showLabel: false,
         type: 'stars',
@@ -109,6 +126,7 @@ export const surveys: Record<string, SurveyDefinition> = {
         minLength: 3,
         placeholder: 'Did any amenities stand out to you?',
         required: true,
+				header: false,
 				showLine: false,
         showLabel: true,
         type: 'text_box',
@@ -122,6 +140,7 @@ export const surveys: Record<string, SurveyDefinition> = {
         max: 5,
         min: 1,
         required: true,
+				header: false,
 				showLine: false,
         showLabel: false,
         type: 'stars',
@@ -134,6 +153,7 @@ export const surveys: Record<string, SurveyDefinition> = {
         minLength: 3,
         placeholder: 'How do we compare?',
         required: true,
+				header: false,
 				showLine: false,
         showLabel: true,
         type: 'text_box',
@@ -148,12 +168,23 @@ export const surveys: Record<string, SurveyDefinition> = {
     version: 1,
     questions: [
       // Objective
+			 {
+        id: 'header',
+        label:
+          '**FBO Workshop Survey**',
+        showLabel: true,
+        required: false,
+				header: true,
+				showLine: false,
+        type: 'question_base',
+      },
       {
         id: 'objective',
         label:
           '**Objective:** The goal of the FBO survey is to evaluate the effectiveness of the leadership team by gathering employee feedback on communication, decisionmaking, vision, teamwork, operational changes and support. The survey aims to identify leadership strengths, uncover areas for improvement, and assess alignment with company values and culture. Insights gained will help guide organizational development, enhance transparency, strengthen employee engagement, and ensure leaders are equipped to drive mission success.',
         showLabel: true,
         required: false,
+				header: false,
 				showLine: false,
         type: 'question_base',
       },
@@ -164,6 +195,7 @@ export const surveys: Record<string, SurveyDefinition> = {
           '**Instructions:** Thank you for taking the time to provide feedback. Your input is essential in helping us strengthen our leadership practices and create a better workplace environment for the entire team. The survey is 100% anonymous. Please answer honestly, your candid feedback helps us improve and perform to the highest standards. For each question: Select the response that best represents your experience or opinion. Although not required, but highly encouraged, extra space has been provided to express any desired comment to each selected question.',
         showLabel: true,
         required: false,
+				header: false,
 				showLine: false,
         type: 'question_base',
       },
@@ -175,6 +207,7 @@ export const surveys: Record<string, SurveyDefinition> = {
         label:
           '1. How effectively do team members collaborate and support one another in completing work?',
         required: true,
+				header: false,
 				showLine: false,
         showLabel: true,
         options: [
@@ -194,6 +227,7 @@ export const surveys: Record<string, SurveyDefinition> = {
         minLength: 0,
         placeholder: 'Share why you chose this rating.',
         required: false,
+				header: false,
 				showLine: false,
         showLabel: true,
         type: 'text_box',
@@ -205,6 +239,7 @@ export const surveys: Record<string, SurveyDefinition> = {
         id: 'question_2',
         label: '2. How effectively does your direct leadership support you in your role?',
         required: true,
+				header: false,
 				showLine: false,
         showLabel: true,
         options: [
@@ -224,6 +259,7 @@ export const surveys: Record<string, SurveyDefinition> = {
         minLength: 0,
         placeholder: 'Share why you chose this rating.',
         required: false,
+				header: false,
 				showLine: false,
         showLabel: true,
         type: 'text_box',
@@ -236,6 +272,7 @@ export const surveys: Record<string, SurveyDefinition> = {
         label:
           '3. How clear and effective is communication within your team and across other NSJ departments?',
         required: true,
+				header: false,
 				showLine: false,
         showLabel: true,
         options: [
@@ -256,6 +293,7 @@ export const surveys: Record<string, SurveyDefinition> = {
         minLength: 0,
         placeholder: 'Share why you chose this rating.',
         required: false,
+				header: false,
 				showLine: false,
         showLabel: true,
         type: 'text_box',
@@ -267,6 +305,7 @@ export const surveys: Record<string, SurveyDefinition> = {
         id: 'question_4',
         label: '4. How would you describe your overall morale and motivation at work?',
         required: true,
+				header: false,
 				showLine: false,
         showLabel: true,
         options: [
@@ -286,6 +325,7 @@ export const surveys: Record<string, SurveyDefinition> = {
         minLength: 0,
         placeholder: 'Share why you chose this rating.',
         required: false,
+				header: false,
 				showLine: false,
         showLabel: true,
         type: 'text_box',
@@ -298,6 +338,7 @@ export const surveys: Record<string, SurveyDefinition> = {
         label:
           '5. How well do you feel you are able to be productive in your role with the tools, resources, training, and expectations provided?',
         required: true,
+				header: false,
 				showLine: false,
         showLabel: true,
         options: [
@@ -317,6 +358,7 @@ export const surveys: Record<string, SurveyDefinition> = {
         minLength: 0,
         placeholder: 'Share why you chose this rating.',
         required: false,
+				header: false,
 				showLine: false,
         showLabel: true,
         type: 'text_box',
@@ -329,6 +371,7 @@ export const surveys: Record<string, SurveyDefinition> = {
         label:
           '6. How well does NorthStar Jet function overall in enabling you to perform your job successfully? (Module 5)',
         required: true,
+				header: false,
 				showLine: false,
         showLabel: true,
         options: [
@@ -350,6 +393,7 @@ export const surveys: Record<string, SurveyDefinition> = {
         placeholder:
           'Share why you chose this rating.',
         required: false,
+				header: false,
 				showLine: false,
         showLabel: true,
         type: 'text_box',
@@ -365,6 +409,7 @@ export const surveys: Record<string, SurveyDefinition> = {
         placeholder:
           'Share any other feedback, suggestions, or examples you think would help improve our operations, culture, or customer service.',
         required: false,
+				header: false,
 				showLine: true,
         showLabel: true,
         type: 'text_box',
@@ -377,6 +422,7 @@ export const surveys: Record<string, SurveyDefinition> = {
           '**FBO Scoreboard Ideas**',
         showLabel: true,
         required: false,
+				header: false,
 				showLine: true,
         type: 'question_base',
       },
@@ -386,6 +432,7 @@ export const surveys: Record<string, SurveyDefinition> = {
           'The FBO Leadership Team is seeking creative ideas to showcase the hard work and accomplishments of the entire FBO staff.',
         showLabel: true,
         required: false,
+				header: false,
 				showLine: false,
         type: 'question_base',
       },
@@ -395,6 +442,7 @@ export const surveys: Record<string, SurveyDefinition> = {
           'The goal is to highlight the value and dedication demonstrated by the team across all areas of operation.\nPlease review the scoreboard ideas listed below and select as many as you’d like—there is no limit to the number of choices you can make. If you have additional suggestions that are not listed, feel free to add your own ideas.',
         showLabel: true,
         required: false,
+				header: false,
 				showLine: false,
         type: 'question_base',
       },
@@ -405,6 +453,7 @@ export const surveys: Record<string, SurveyDefinition> = {
           '**Instructions:** Please review the scoreboard ideas listed below and select as many as you’d like—there is no limit to the number of choices you can make. If you have additional suggestions that are not listed, feel free to add your own ideas.',
         showLabel: true,
         required: false,
+				header: false,
 				showLine: true,
         type: 'question_base',
       },
@@ -416,6 +465,7 @@ export const surveys: Record<string, SurveyDefinition> = {
         label: '**Ground Services Performed** (select all that apply)',
         placeholder: 'Select one or more',
         required: false,
+				header: false,
 				showLine: false,
         showLabel: true,
         options: [
@@ -437,6 +487,7 @@ export const surveys: Record<string, SurveyDefinition> = {
         label: '**Ramp Fueling Operations** (select all that apply)',
         placeholder: 'Select one or more',
         required: false,
+				header: false,
 				showLine: false,
         showLabel: true,
         options: [
@@ -461,6 +512,7 @@ export const surveys: Record<string, SurveyDefinition> = {
         label: '**Seasonal / De-Ice Operations** (select all that apply)',
         placeholder: 'Select one or more',
         required: false,
+				header: false,
 				showLine: false,
         showLabel: true,
         options: [
@@ -478,6 +530,7 @@ export const surveys: Record<string, SurveyDefinition> = {
         label: '**Programs, Training & Admin** (select all that apply)',
         placeholder: 'Select one or more',
         required: false,
+				header: false,
 				showLine: false,
         showLabel: true,
         options: [
@@ -505,6 +558,7 @@ export const surveys: Record<string, SurveyDefinition> = {
         placeholder:
           'Feel free to add your own scoreboard suggestions!',
         required: false,
+				header: false,
 				showLine: false,
         showLabel: true,
         type: 'text_box',
@@ -517,6 +571,7 @@ export const surveys: Record<string, SurveyDefinition> = {
           '**From the FBO Leadership**, Thank you for input. This information will be reviewed together as a team, with the goal of identifying shared opportunities to deliver the highest level of customer service as the most unified, highly qualified FBO in the Northwest.',
         showLabel: true,
         required: false,
+				header: false,
 				showLine: true,
         type: 'question_base',
       },
@@ -526,6 +581,7 @@ export const surveys: Record<string, SurveyDefinition> = {
           'The results of this survey will be shared and discussed during the upcoming annual FBO leadership development workshop. Thank You',
         showLabel: true,
         required: false,
+				header: false,
 				showLine: false,
         type: 'question_base',
       },
@@ -538,6 +594,16 @@ export const surveys: Record<string, SurveyDefinition> = {
     version: 1,
     questions: [
       {
+        id: 'header',
+        label:
+          '**App Feedback Survey**',
+        showLabel: true,
+        required: false,
+				header: true,
+				showLine: false,
+        type: 'question_base',
+      },
+      {
         helpText: '',
         id: 'bugs',
         label: 'Did you encounter any bugs?',
@@ -545,6 +611,7 @@ export const surveys: Record<string, SurveyDefinition> = {
         minLength: 3,
         placeholder: 'Bugs... 𖢥',
         required: true,
+				header: false,
 				showLine: false,
         showLabel: true,
         type: 'text_box',
@@ -557,6 +624,7 @@ export const surveys: Record<string, SurveyDefinition> = {
         minLength: 3,
 				placeholder: 'Pizza...',
         required: true,
+				header: false,
 				showLine: false,
         showLabel: true,
         type: 'text_box',
@@ -569,6 +637,7 @@ export const surveys: Record<string, SurveyDefinition> = {
         minLength: 3,
 				placeholder: 'Tell us...',
         required: true,
+				header: false,
 				showLine: false,
         showLabel: true,
         type: 'text_box',

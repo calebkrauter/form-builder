@@ -24,7 +24,7 @@ export function CheckBox({ option, register, submitAction }: Props) {
     }
   }, [submitAction, submitAction.submitted]);
   return (
-    <label className='row spaceAbove'>
+    <label className='row spaceAbove interactiveLabel'>
       <input
         value={Object.entries(option)[KeyValue.KEY][KeyValue.KEY]}
         type='checkbox'

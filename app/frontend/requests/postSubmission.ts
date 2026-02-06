@@ -8,8 +8,8 @@ export async function postSubmission(submission: unknown) {
         body: JSON.stringify(submission),
       });
       if (!response.ok) throw new Error("Data didn't fetch");
-      return response.ok;
+      return response.json();
     } catch (error) {
-      return error;
+      throw error;
     }
   }

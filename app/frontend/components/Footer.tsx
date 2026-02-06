@@ -1,6 +1,6 @@
 export function Footer() {
   return (
-    <footer className='centerX footer wFull'>
+    <footer className='centerX footer wFull '>
       <a href={'/'} className='link'>
         Other Surveys
       </a>

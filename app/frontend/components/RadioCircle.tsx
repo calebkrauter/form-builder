@@ -11,7 +11,7 @@ interface Props {
 
 export function RadioCircle({ id, option, register }: Props) {
   return (
-    <label className='subject row spaceAbove'>
+    <label className='subject row spaceAbove interactiveLabel'>
       <input
         type='radio'
         id={id}

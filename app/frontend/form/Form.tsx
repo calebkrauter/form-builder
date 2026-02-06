@@ -88,22 +88,27 @@ export function Form({ surveyKey }: Props) {
   };
 
   const onSubmit: SubmitHandler<FormValues> = async () => {
-    toast.success("We've received your feedback!");
     const submissionData = getValues();
     setSubmitted(true);
     reset();
     setStarRating(-1);
     //     (surveyKey, createdBy, submissionId, rowVersion, creatorId, createdAt, modifiedBy, submissionData)
-
-    postSubmission({
-      surveyKey: surveys[surveyKey].surveyKey,
-      submissionId: uuidv4(),
-      rowVersion: 0,
-      creatorId: getSubmitterId(),
-      createdAt: new Date(),
-      modifiedBy: new Date(),
-      submissionData,
-    });
+    toast.promise(
+      postSubmission({
+        surveyKey: surveys[surveyKey].surveyKey,
+        submissionId: uuidv4(),
+        rowVersion: 0,
+        creatorId: getSubmitterId(),
+        createdAt: new Date(),
+        modifiedBy: new Date(),
+        submissionData,
+      }),
+      {
+        loading: 'Loading...',
+        success: 'Form Submitted!',
+        error: 'Failed to Submit. :(',
+      },
+    );
   };
   const onInvalid: SubmitErrorHandler<FormValues> = () => {};
 
@@ -133,10 +138,16 @@ export function Form({ surveyKey }: Props) {
             >
               <FontAwesomeIcon icon={faXmark}></FontAwesomeIcon>
             </div>
-            <h2 className='secondary'>Thank you</h2>
-            <Markdown>**for your submission!**</Markdown>
-            <h1 className='mTop'>🎉</h1>
-            <p className='mTop'>Close this to make another submission.</p>
+            <h1 className='secondary mBottom'>Thank you! 🎉</h1>
+
+            <button
+              className='mTop formButton'
+              onClick={() => {
+                setSubmitted(false);
+              }}
+            >
+              Make another submission.
+            </button>
           </div>
         )}
         {!submitted &&
@@ -202,7 +213,11 @@ export function Form({ surveyKey }: Props) {
                     <Markdown
                       components={{
                         p: ({ children }) => (
-                          <p className='subject description'>{children}</p>
+                          <p
+                            className={`subject description ${questions[i].header ? 'centerX' : ''}`}
+                          >
+                            {children}
+                          </p>
                         ),
                       }}
                     >

@@ -6,6 +6,7 @@ interface QuestionBase {
   label: string,
   showLabel: boolean,
   required: boolean,
+  header: boolean,
   showLine: boolean,
   type: FieldType,
 }
