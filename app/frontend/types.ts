@@ -28,7 +28,7 @@ type CheckBoxQuestion = RatingRadioQuestion;
 
 interface DropdownSelectQuestion extends QuestionBase {
   placeholder: string,
-  options: string[],
+  options: object[],
 }
 
 
@@ -71,3 +71,8 @@ export const enum FieldTypes {
   export function hasOptionsCheckBox(question: SurveyQuestion): question is CheckBoxQuestion {
     return question.type === FieldTypes.CHECK_BOX;
   }
+
+export const enum KeyValue {
+  KEY = 0,
+  VALUE = 1,
+}

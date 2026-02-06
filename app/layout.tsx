@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
-import { NuqsAdapter } from 'nuqs/adapters/next/app';
 import { LoginProvider } from './frontend/components/LoginProvider';
 
 const geistSans = Geist({
@@ -27,9 +26,7 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <NuqsAdapter>
-          <LoginProvider>{children} </LoginProvider>
-        </NuqsAdapter>
+        <LoginProvider>{children} </LoginProvider>
       </body>
     </html>
   );

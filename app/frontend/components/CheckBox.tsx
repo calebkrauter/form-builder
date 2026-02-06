@@ -1,11 +1,8 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSquareCheck, faSquare } from '@fortawesome/free-regular-svg-icons';
-import {
-  FieldValues,
-  UseFormGetValues,
-  UseFormRegisterReturn,
-} from 'react-hook-form';
+import { UseFormRegisterReturn } from 'react-hook-form';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { KeyValue } from '../types';
 
 interface Props {
   option: string;
@@ -29,6 +26,7 @@ export function CheckBox({ option, register, submitAction }: Props) {
   return (
     <label className='row spaceAbove'>
       <input
+        value={Object.entries(option)[KeyValue.KEY][KeyValue.KEY]}
         type='checkbox'
         id={option}
         {...register}
@@ -42,7 +40,9 @@ export function CheckBox({ option, register, submitAction }: Props) {
       )}
       {!checked && <FontAwesomeIcon icon={faSquare} className='square' />}
 
-      <div className='subject selectionText'>{option}</div>
+      <div className='subject selectionText'>
+        {Object.entries(option)[KeyValue.KEY][KeyValue.VALUE]}
+      </div>
     </label>
   );
 }

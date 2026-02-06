@@ -1,10 +1,10 @@
 'use client';
 
-import { useId } from 'react';
 import { UseFormRegisterReturn } from 'react-hook-form';
+import { KeyValue } from '../types';
 interface Props {
   title?: string;
-  options: string[];
+  options: object[];
   register: UseFormRegisterReturn;
   error: string;
   id: string;
@@ -45,8 +45,11 @@ export function Dropdown({
 
         {options.map((option, i) => {
           return (
-            <option value={option} key={i}>
-              &nbsp;&nbsp;{option}
+            <option
+              value={Object.entries(option)[KeyValue.KEY][KeyValue.VALUE]}
+              key={i}
+            >
+              &nbsp;&nbsp;{Object.entries(option)[KeyValue.KEY][KeyValue.VALUE]}
             </option>
           );
         })}

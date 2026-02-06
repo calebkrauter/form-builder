@@ -9,6 +9,7 @@ export async function authenticateUser(auth: unknown) {
         },
         body: JSON.stringify(auth),
       });
+      
 
       if (!response.ok) throw new Error("Data didn't fetch");
       const data = await response.json();

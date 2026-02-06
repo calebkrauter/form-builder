@@ -1,5 +1,5 @@
 import { UseFormRegisterReturn } from 'react-hook-form';
-import { SurveyQuestion } from '../types';
+import { KeyValue, SurveyQuestion } from '../types';
 import { RadioCircle } from './RadioCircle';
 
 interface Props {

@@ -1,5 +1,5 @@
 import { UseFormRegisterReturn } from 'react-hook-form';
-import { SurveyQuestion } from '../types';
+import { KeyValue, SurveyQuestion } from '../types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleDot } from '@fortawesome/free-solid-svg-icons';
 
@@ -15,14 +15,15 @@ export function RadioCircle({ id, option, register }: Props) {
       <input
         type='radio'
         id={id}
-        value={option}
+        value={Object.entries(option)[KeyValue.KEY][KeyValue.KEY]}
         {...register}
-        defaultChecked={false} // string comparison
+        defaultChecked={false}
       />
-
       <FontAwesomeIcon icon={faCircleDot} className='circle' />
 
-      <div className='selectionText'>{option}</div>
+      <div className='selectionText'>
+        {Object.entries(option)[KeyValue.KEY][KeyValue.VALUE]}
+      </div>
     </label>
   );
 }

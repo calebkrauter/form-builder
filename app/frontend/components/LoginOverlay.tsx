@@ -1,14 +1,11 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { LoginButton } from './LoginButton';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import z from 'zod';
-import { useQueryState } from 'nuqs';
 import { authenticateUser } from '../requests/authenticateUser';
-import { createUser } from '../requests/createUser';
 export function LoginOverlay({}) {
-  const [username] = useQueryState('username');
   const [pressedSubmit, setPressedSubmit] = useState(false);
   const schema = z.object({
     password: z.string().nonempty(),
@@ -25,9 +22,6 @@ export function LoginOverlay({}) {
     mode: 'onSubmit', // validate as soon as values change
   });
   const onSubmit: SubmitHandler<FormValues> = async () => {
-    if (username) {
-      await createUser({ username: username, password: getValues().password });
-    }
     const password = getValues().password;
     const isAuthenticated = await authenticateUser({
       password: password,

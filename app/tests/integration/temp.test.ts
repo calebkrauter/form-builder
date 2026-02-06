@@ -52,22 +52,6 @@ describe('Authenticate User', () => {
 });
 
 
-describe('Create User', () => {
-  it('Should create a user and a password', async () => {
-    const randomPassword = nanoid(7);
-    const randomUsername = nanoid(10);
-   const response = await fetch('http://localhost:3000/api/post-new-user', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username: randomUsername, password: randomPassword }),
-    });
-    const data = await response.json();
-    expect(data.received.password).toBe(randomPassword);
-    expect(data.received.username).toBe(randomUsername);
-  });
-});
-
-
 describe('Post Submission', () => {
   it('Checks if a submission was POSTed', async () => {
    const response = await fetch('http://localhost:3000/api/post', {

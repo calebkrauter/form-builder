@@ -163,7 +163,6 @@ export function Form({ surveyKey }: Props) {
               );
             case FieldTypes.QUESTION_BASE:
               return (
-                // DESCRIPTION
                 <Markdown
                   key={questions[i].id}
                   components={{

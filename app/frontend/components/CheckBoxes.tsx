@@ -6,7 +6,7 @@ import {
   UseFormRegisterReturn,
   useController,
 } from 'react-hook-form';
-import { SurveyQuestion } from '../types';
+import { KeyValue, SurveyQuestion } from '../types';
 import { CheckBox } from './CheckBox';
 import { Dispatch, SetStateAction } from 'react';
 
