@@ -1,4 +1,3 @@
-import { LoginOverlay } from '@/app/frontend/components/LoginOverlay';
 import { Form } from '@/app/frontend/form/Form';
 import React from 'react';
 

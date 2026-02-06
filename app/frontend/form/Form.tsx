@@ -82,12 +82,15 @@ export function Form({ surveyKey }: Props) {
     setSubmitted(true);
     reset();
     setStarRating(-1);
+    //     (surveyKey, createdBy, submissionId, rowVersion, creatorId, createdAt, modifiedBy, submissionData)
+
     postSubmission({
-      responseId: uuidv4(),
-      rowVersion: 0,
       surveyKey: surveys[surveyKey].surveyKey,
-      submitterId: getSubmitterId(),
-      submittedAt: new Date(),
+      submissionId: uuidv4(),
+      rowVersion: 0,
+      creatorId: getSubmitterId(),
+      createdAt: new Date(),
+      modifiedBy: new Date(),
       submissionData,
     });
   };
