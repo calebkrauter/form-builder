@@ -136,16 +136,21 @@ input[type='radio'] {
   -ms-user-select: none;
   user-select: none;
   opacity: 0;
-  cursor: pointer;
   height: 0;
   width: 0;
-}
+  }
+/* 
+label {
+    cursor: pointer !important;
 
+} */
 
 .checkmark {
-  color: rgb(142, 142, 142);
+  color: #0271e3;
   width: 20px;
   height: 20px;
+  cursor: pointer;
+
 }
 .selectionText {
   margin-left: 10px;
@@ -159,6 +164,8 @@ input[type='radio'] {
   color: rgb(227, 227, 227);
   width: 20px;
   height: 20px;
+  cursor: pointer;
+
 }
 
 .square:hover {
@@ -174,6 +181,7 @@ input[type='radio'] {
   justify-content: center;
   align-items: center;
   color: white;
+  cursor: pointer;
 }
 
 .circle:hover {
@@ -223,7 +231,7 @@ input[type='radio'] {
 }
 
 input:checked + .circle {
-  color: rgb(142, 142, 142);
+  color: #0271e3;
 }
 
 .description {
@@ -242,6 +250,7 @@ input:checked + .circle {
 button {
   background-color: #ffffff;
   border: none;
+  cursor: pointer !important;
 }
 
 .submitButton {
@@ -342,6 +351,8 @@ color: #606060ff
   display: flex;
   flex-direction: row;
   margin-right: 2px;
+  cursor: pointer;
+
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -386,6 +397,10 @@ color: #606060ff
 }
 .fields {
   background-color: white;
+}
+
+select {
+  cursor: pointer;
 }
 
 .dropdown {

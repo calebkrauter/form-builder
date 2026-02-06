@@ -34,17 +34,20 @@ export function Form({ surveyKey }: Props) {
   const schema = z.object(
     questions.reduce(
       (result, field) => {
-        if (field.type === FieldTypes.TEXT_INPUT) {
+        if (field.type === FieldTypes.TEXT_INPUT && field.required) {
           result[field.id] = z.string().min(1);
         } else if (field.type === FieldTypes.TEXT_BOX && field.required) {
           result[field.id] = z.string().min(1);
-        } else if (field.type === FieldTypes.STARS) {
+        } else if (field.type === FieldTypes.STARS && field.required) {
           result[field.id] = z.coerce.number().min(1, 'Make selection');
-        } else if (field.type === FieldTypes.DROPDOWN_SELECT) {
+        } else if (
+          field.type === FieldTypes.DROPDOWN_SELECT &&
+          field.required
+        ) {
           result[field.id] = z.string().nonempty();
-        } else if (field.type === FieldTypes.CHECK_BOX) {
+        } else if (field.type === FieldTypes.CHECK_BOX && field.required) {
           result[field.id] = z.array(z.string().nonempty()).nonempty();
-        } else if (field.type === FieldTypes.RATING) {
+        } else if (field.type === FieldTypes.RATING && field.required) {
           result[field.id] = z.preprocess(
             (val) => val ?? '',
             z.string().nonempty('Select a box'),
