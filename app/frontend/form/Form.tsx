@@ -41,7 +41,13 @@ export function Form({ surveyKey }: Props) {
         } else if (field.type === FieldTypes.TEXT_BOX && field.required) {
           result[field.id] = z.string().min(1);
         } else if (field.type === FieldTypes.STARS && field.required) {
-          result[field.id] = z.coerce.number().min(1, 'Make selection');
+          result[field.id] = z.preprocess(
+            (val) => {
+              if (!val) return 0;
+              return val;
+            },
+            z.coerce.number().min(1, 'Make selection'),
+          );
         } else if (
           field.type === FieldTypes.DROPDOWN_SELECT &&
           field.required

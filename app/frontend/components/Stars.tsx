@@ -19,13 +19,11 @@ export function Stars({
   showLabel,
 }: Props) {
   const [getRating, setRating] = useState(0);
-  const [getSubjectRating, setSubjectRating] = useState(0);
 
   function handleRating(rating: number) {
     const curRating = getRating === rating ? 0 : rating;
     setRating(curRating);
     updateRating(curRating, itr);
-    setSubjectRating(curRating);
   }
 
   useEffect(() => {
